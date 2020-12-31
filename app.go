@@ -170,13 +170,13 @@ func main() {
 
 	if len(incorrectGuess) == lives {
 		fmt.Println("")
-		fmt.Println("You died!")
+		fmt.Println("----------------You died----------------")
 		fmt.Printf("The country was %s", guess)
 	}
 
 	if len(correctGuess) == uc {
 		fmt.Println("")
-		fmt.Println("Well done!")
+		fmt.Println("----------------Well done----------------")
 		fmt.Printf("The country was %s", guess)
 	}
 
