@@ -8,6 +8,8 @@ import (
 var i, j int = 0, 3
 var countryData = []string{"ghana", "togo", "benin", "kenya"}
 
+const lives = 5
+
 // function that gets user input and returns it
 func getUserInput() string {
 	var userInput string
@@ -43,15 +45,11 @@ func countUnique(word string) int {
 		k, _ := Find(characters, s)
 		if k == -1 {
 			// add if yes
-			fmt.Println(s)
-
 			characters = append(characters, s)
 		} else {
 			// skip if no
 			continue
 		}
-		fmt.Println(characters)
-		fmt.Println("")
 	}
 	return len(characters)
 }
@@ -59,6 +57,7 @@ func countUnique(word string) int {
 func main() {
 	usedChars := []string{}
 	correctGuess := []string{}
+	incorrectGuess := []string{}
 	fmt.Println("Welcome to hangman, type 's' to begin")
 
 	// get data to start
@@ -76,6 +75,8 @@ func main() {
 
 	// choose a the guess
 	guess := countryData[2]
+
+	uc := countUnique(guess)
 
 	fmt.Println("Guess the country")
 	for i := 0; i < len(guess); i++ {
@@ -101,16 +102,37 @@ func main() {
 			correctGuess = append(correctGuess, value) // if guess is correct store it
 			fmt.Printf(" - %s - is a character of guess", value)
 		} else {
+			incorrectGuess = append(incorrectGuess, value) // if guess is correct store it
 			fmt.Printf(" - %s - is not character of guess", value)
 		}
 
 		fmt.Println("")
-		fmt.Print("Used charaters")
-		fmt.Println(usedChars)
+		fmt.Print("Incorrect charaters")
+		fmt.Println(incorrectGuess)
 
 		fmt.Println("")
 		fmt.Print("Correct guesses")
 		fmt.Println(correctGuess)
+
+		if len(incorrectGuess) == lives {
+			break
+		}
+
+		if len(correctGuess) == uc {
+			break
+		}
+	}
+
+	if len(incorrectGuess) == lives {
+		fmt.Println("")
+		fmt.Println("You died!")
+		fmt.Printf("The country was %s", guess)
+	}
+
+	if len(correctGuess) == uc {
+		fmt.Println("")
+		fmt.Println("Well done!")
+		fmt.Printf("The country was %s", guess)
 	}
 
 }
