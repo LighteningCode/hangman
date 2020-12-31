@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 var i, j int = 0, 3
@@ -54,14 +55,25 @@ func getCharaterPositions(char string, word string) []int {
 	return pos
 }
 
-func guessedResult(slice []string, word string) string {
-	var result strings.Builder
+func guessedResult(slice []string, word string) []string {
+	strlen := utf8.RuneCountInString(word)
+	guessed := make([]string, strlen)
 
-	for i := 0; i < len(word); i++ {
-		result.WriteString("_ ")
+	// fill the entire guessed array with "_"
+	for idx := range guessed {
+		guessed[idx] = "_"
 	}
 
-	return result.String()
+	// for each letter in slice get the positions
+	for i := 0; i < len(slice); i++ {
+		postions := getCharaterPositions(slice[i], word)
+
+		for j := 0; j < len(postions); j++ {
+			guessed[postions[j]] = slice[i]
+		}
+	}
+
+	return guessed
 }
 
 func countUnique(word string) int {
@@ -112,9 +124,9 @@ func main() {
 	uc := countUnique(guess)
 
 	fmt.Println("Guess the country")
-	fmt.Println(guessedResult(correctGuess, guess))
 
 	for {
+		fmt.Println(guessedResult(correctGuess, guess))
 		// user has to enter a value
 		value := getUserInput()
 
