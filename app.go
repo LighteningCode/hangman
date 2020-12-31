@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 var i, j int = 0, 3
-var countryData = []string{"ghana", "togo", "benin", "kenya"}
+var countryData = []string{"ghana", "togo", "benin", "kenya", "uganda"}
 
 const lives = 5
 
@@ -19,6 +21,13 @@ func getUserInput() string {
 		return "Error"
 	}
 	return userInput
+}
+
+func getRandomCountry() string {
+	rand.Seed(time.Now().UnixNano())
+	min := 0
+	max := len(countryData)
+	return countryData[rand.Intn(max-min)]
 }
 
 // Find takes a slice and looks for an element in it. If found it will
@@ -74,7 +83,7 @@ func main() {
 	}
 
 	// choose a the guess
-	guess := countryData[2]
+	guess := getRandomCountry()
 
 	uc := countUnique(guess)
 
@@ -89,7 +98,6 @@ func main() {
 
 		k, _ := Find(usedChars, value)
 		if k == -1 {
-			fmt.Println("Value not found (add)")
 			fmt.Println("")
 			usedChars = append(usedChars, value)
 			fmt.Println("")
