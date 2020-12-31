@@ -30,6 +30,32 @@ func Find(slice []string, val string) (int, bool) {
 	return -1, false
 }
 
+func countUnique(word string) int {
+
+	characters := []string{}
+	// create an array to store all values characters
+	for _, ch := range word {
+
+		// convert rune to string
+		s := fmt.Sprintf("%c", ch)
+
+		// check if character exists
+		k, _ := Find(characters, s)
+		if k == -1 {
+			// add if yes
+			fmt.Println(s)
+
+			characters = append(characters, s)
+		} else {
+			// skip if no
+			continue
+		}
+		fmt.Println(characters)
+		fmt.Println("")
+	}
+	return len(characters)
+}
+
 func main() {
 	usedChars := []string{}
 	correctGuess := []string{}
