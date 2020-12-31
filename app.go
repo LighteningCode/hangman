@@ -41,6 +41,29 @@ func Find(slice []string, val string) (int, bool) {
 	return -1, false
 }
 
+func getCharaterPositions(char string, word string) []int {
+
+	pos := []int{}
+
+	for idx, ch := range word {
+		if char == fmt.Sprintf("%c", ch) {
+			pos = append(pos, idx)
+		}
+	}
+
+	return pos
+}
+
+func guessedResult(slice []string, word string) string {
+	var result strings.Builder
+
+	for i := 0; i < len(word); i++ {
+		result.WriteString("_ ")
+	}
+
+	return result.String()
+}
+
 func countUnique(word string) int {
 
 	characters := []string{}
@@ -85,12 +108,11 @@ func main() {
 	// choose a the guess
 	guess := getRandomCountry()
 
+	// count the unique items
 	uc := countUnique(guess)
 
 	fmt.Println("Guess the country")
-	for i := 0; i < len(guess); i++ {
-		fmt.Print("_ ")
-	}
+	fmt.Println(guessedResult(correctGuess, guess))
 
 	for {
 		// user has to enter a value
