@@ -113,13 +113,16 @@ func main() {
 			incorrectGuess = append(incorrectGuess, value) // if guess is correct store it
 			fmt.Printf(" - %s - is not character of guess", value)
 		}
-
 		fmt.Println("")
-		fmt.Print("Incorrect charaters")
+		fmt.Println("")
+
+		fmt.Print("Number of chances left : ")
+		fmt.Println(lives - len(incorrectGuess))
+
+		fmt.Print("Incorrect guessed letters")
 		fmt.Println(incorrectGuess)
 
-		fmt.Println("")
-		fmt.Print("Correct guesses")
+		fmt.Print("Correct guesses letters")
 		fmt.Println(correctGuess)
 
 		if len(incorrectGuess) == lives {
