@@ -19,6 +19,17 @@ func getUserInput() string {
 	return userInput
 }
 
+// Find takes a slice and looks for an element in it. If found it will
+// return it's key, otherwise it will return -1 and a bool of false.
+func Find(slice []string, val string) (int, bool) {
+	for i, item := range slice {
+		if item == val {
+			return i, true
+		}
+	}
+	return -1, false
+}
+
 func main() {
 	usedChars := []string{}
 	correctGuess := []string{}
@@ -45,18 +56,35 @@ func main() {
 		fmt.Print("_ ")
 	}
 
-	// user has to enter a value
-	value := getUserInput()
-	usedChars = append(usedChars, value)
-	if strings.Contains(guess, value) {
-		correctGuess = append(correctGuess, value) // if guess is correct store it
-		fmt.Printf(" - %s - is a character of guess", value)
-	} else {
-		fmt.Printf(" - %s - is not character of guess", value)
-	}
+	for {
+		// user has to enter a value
+		value := getUserInput()
 
-	fmt.Println("")
-	fmt.Println("Used charaters")
-	fmt.Println(usedChars)
+		k, _ := Find(usedChars, value)
+		if k == -1 {
+			fmt.Println("Value not found (add)")
+			fmt.Println("")
+			usedChars = append(usedChars, value)
+			fmt.Println("")
+		} else {
+			fmt.Println("Value already used")
+			continue
+		}
+
+		if strings.Contains(guess, value) {
+			correctGuess = append(correctGuess, value) // if guess is correct store it
+			fmt.Printf(" - %s - is a character of guess", value)
+		} else {
+			fmt.Printf(" - %s - is not character of guess", value)
+		}
+
+		fmt.Println("")
+		fmt.Print("Used charaters")
+		fmt.Println(usedChars)
+
+		fmt.Println("")
+		fmt.Print("Correct guesses")
+		fmt.Println(correctGuess)
+	}
 
 }
