@@ -8,3 +8,6 @@ So I emulated this in golang as a terminal program
 
 
 ![hangman](./hangman.gif)
+
+
+## 🚀 click <a href="https://github.com/LighteningCode/hangman/raw/main/app.exe">here</a> to download file and try out
